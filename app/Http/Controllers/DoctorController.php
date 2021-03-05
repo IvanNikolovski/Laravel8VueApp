@@ -49,8 +49,6 @@ class DoctorController extends Controller
         if (request()->wantsJson()) {
             return response(["ok"], 200);
         }
-
-        return redirect()->back();
     }
 
     /**
@@ -61,7 +59,6 @@ class DoctorController extends Controller
      */
     public function show(Doctor $doctor)
     {
-        // return view('doctors.show', ['doctor' => $doctor]);
         return view('doctors.show', ['doctor' => $doctor]);
     }
 
@@ -91,8 +88,6 @@ class DoctorController extends Controller
         if (request()->wantsJson()) {
             return response(["ok"], 200);
         }
-
-        return redirect('/doctor/edit/' . $request->id);
     }
 
     /**
@@ -104,13 +99,10 @@ class DoctorController extends Controller
     public function destroy(Doctor $doctor)
     {
         $this->deleteDoctor($doctor->id);
-        //  Doctor::findOrFail($doctor->id)->delete();
 
         if (request()->wantsJson()) {
             return response(["it's deleted"], 200);
         }
-
-        // return redirect('/doctor/create');
        
     }
 

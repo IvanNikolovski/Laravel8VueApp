@@ -7,12 +7,14 @@
           <input
             type="text"
             class="form-control"
-            id="nameText"           
-            :class="[this.errors.name  ? 'is-invalid' : '']"
+            id="nameText"
+            :class="[this.errors.name ? 'is-invalid' : '']"
             v-model="name"
             required
           />
-          <div v-if="errors && errors.name" class="text-danger">{{ errors.name[0] }}</div>
+          <div v-if="errors && errors.name" class="text-danger">
+            {{ errors.name[0] }}
+          </div>
         </div>
       </div>
       <div class="row mb-3">
@@ -23,12 +25,18 @@
           <input
             type="text"
             class="form-control"
-            :class="[this.errors.speciality || this.speciality == '' ? 'is-invalid' : '']"
+            :class="[
+              this.errors.speciality || this.speciality == ''
+                ? 'is-invalid'
+                : '',
+            ]"
             id="nameText"
             v-model="speciality"
-            requred            
+            requred
           />
-          <div v-if="errors && errors.speciality" class="text-danger">{{ errors.speciality[0] }}</div>
+          <div v-if="errors && errors.speciality" class="text-danger">
+            {{ errors.speciality[0] }}
+          </div>
         </div>
       </div>
       <div class="row mb-3">
@@ -39,12 +47,18 @@
           <input
             type="text"
             class="form-control"
-            :class="[this.errors.institution || this.institution == '' ? 'is-invalid' : '']"
+            :class="[
+              this.errors.institution || this.institution == ''
+                ? 'is-invalid'
+                : '',
+            ]"
             id="nameText"
             v-model="institution"
             required
           />
-           <div v-if="errors && errors.institution" class="text-danger">{{ errors.institution[0] }}</div>
+          <div v-if="errors && errors.institution" class="text-danger">
+            {{ errors.institution[0] }}
+          </div>
         </div>
       </div>
       <div class="row mb-3">
@@ -61,8 +75,13 @@
         </div>
       </div>
       <!-- <button type="submit" class="btn btn-primary" @click="updateDoctor"> -->
-          <input type="text" class="btn btn-primary" @click="updateDoctor" placeholder="update a doctor"/>
-        <!-- Edit a doctor -->
+      <input
+        type="text"
+        class="btn btn-primary"
+        @click="updateDoctor"
+        placeholder="update a doctor"
+      />
+      <!-- Edit a doctor -->
       <!-- </button> -->
     </form>
   </div>
@@ -84,26 +103,29 @@ export default {
 
   methods: {
     updateDoctor() {
-        axios.put('/api/doctor/update/' + this.doctor.id,{
-          name: this.name, 
-          user_id: this.user_id, 
-          speciality: this.speciality, 
-          institution: this.institution, 
-          is_active: this.is_active 
-        }).then( response => {
-             if(response.status == 200) {
-           console.log('update is successfull');
-          }
-        }).catch(error => {
-            console.log(1, error.response.data.errors.name[0]);
-            this.errors = error.response.data.errors;
-
+      axios
+        .put("/api/doctor/update/" + this.doctor.id, {
+          name: this.name,
+          user_id: this.user_id,
+          speciality: this.speciality,
+          institution: this.institution,
+          is_active: this.is_active,
         })
+        .then((response) => {
+          if (response.status == 200) {
+            console.log("update is successfull");
+            window.location.href = "/doctor/edit/" + this.doctor.id;
+          }
+        })
+        .catch((error) => {
+          console.log(1, error.response.data.errors.name[0]);
+          this.errors = error.response.data.errors;
+        });
     },
   },
 
-  mounted() {
-    console.log(this.doctor,  '/api/doctor/update/' + this.doctor.id);
-  },
+  // mounted() {
+  //   console.log(this.doctor,  '/api/doctor/update/' + this.doctor.id);
+  // },
 };
 </script>
