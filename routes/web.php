@@ -73,6 +73,10 @@ Route::get('/appointments/edit/{appointment}', [AppointmentController::class, 'e
 Route::post('/appointments/update/{appointment}', [AppointmentController::class, 'update']);
 Route::get('/appointments/show/{appointment}', [AppointmentController::class, 'show']);
 Route::post('/appointments/delete/{appointment}', [AppointmentController::class, 'destroy']);
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/members', function () {
+    return view('members');
+})->name('members');
